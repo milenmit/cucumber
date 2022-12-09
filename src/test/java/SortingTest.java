@@ -1,8 +1,10 @@
+import Enums.Sorting;
 import LoginPage.LoginPage;
 import Products.ProductSorting;
 import Utils.Browser;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -12,7 +14,7 @@ public class SortingTest extends Browser {
     LoginPage lp = new LoginPage(driver);
     ProductSorting ps = new ProductSorting(driver);
 
-    @BeforeTest
+    @BeforeClass
     public void setUp() {
         lp.openDemoPage();
         lp.login("standard_user", "secret_sauce");
@@ -20,12 +22,16 @@ public class SortingTest extends Browser {
 
     @Test(testName = "Sorting Menu Exist")
     public void SortingMenuExist() {
-    ps.chooseSorting();
+        ps.verifySortingMenuIsAvailable(true);
+    }
+    @Test(testName = "Sorting Menu")
+    public void SortingMenu() {
+        ps.chooseSorting(Sorting.PRICE_HIGH_TO_LOW);
     }
 
-    @AfterTest
+  /*  @AfterTest
     public void stopDriver() {
         tearDown();
-    }
+    }*/
 }
 

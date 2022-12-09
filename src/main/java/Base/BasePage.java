@@ -1,6 +1,5 @@
 package Base;
 
-import Utils.Browser;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -23,6 +22,10 @@ public class BasePage {
     // Get element
     public WebElement getElement(By locator) {
         return driver.findElement(locator);
+    }
+
+    public String getElementText(By text) {
+        return driver.findElement(text).toString();
     }
 
     //Get List of web elements

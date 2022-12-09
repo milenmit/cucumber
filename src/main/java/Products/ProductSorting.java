@@ -1,35 +1,41 @@
 package Products;
 
 import Base.BasePage;
+import Enums.Sorting;
 import LoginPage.LoginPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.Assert;
 
 import java.util.List;
 
 public class ProductSorting extends BasePage {
 
-    private static final By LOC_DROPDOWN_SORTING = By.className("select_container");
-    private static final By LOC_PASSWORD = By.id("password");
-    private static final By LOC_SUBMIT = By.id("login-button");
-    private static final By LOC_MENU = By.id("react-burger-menu-btn");
+    private static final By LOC_DROPDOWN_SORTING = By.className("product_sort_container");
+    final Logger LOGGER = LoggerFactory.getLogger(ProductSorting.class);
+        Actions action = new Actions(driver);
 
     public ProductSorting(WebDriver driver) {
         super(driver);
     }
 
-    final Logger LOGGER = LoggerFactory.getLogger(ProductSorting.class);
-
-    public void chooseSorting() {
-
-        List<WebElement> options = getElements(LOC_DROPDOWN_SORTING);
-        for (WebElement option : options) {
-            System.out.println(option.getText());
+    public void verifySortingMenuIsAvailable(boolean available){
+        Assert.assertEquals(getElement(LOC_DROPDOWN_SORTING).isDisplayed(), available);
+    }
+    public void chooseSorting(Sorting sort) {
+        click(LOC_DROPDOWN_SORTING);
+            Select sortingOption = new Select(driver.findElement(LOC_DROPDOWN_SORTING));
+            sortingOption.selectByValue(sort.getValue());
         }
+
     }
-    }
+
+
 
 
