@@ -1,7 +1,8 @@
 package Products;
 
 import Base.BasePage;
-import Enums.Type;
+import Enums.SortingByAlphabetically;
+import Enums.SortingByPrice;
 import com.google.common.collect.Ordering;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -18,7 +19,7 @@ import java.util.stream.Collectors;
 public class ProductSorting extends BasePage {
 
     private static final By LOC_DROPDOWN_SORTING = By.className("product_sort_container");
-    private static final By LOC_INVENTORY = By.className("inventory_list");
+    private static final By LOC_INVENTORY_NAME = By.className("inventory_item_name");
     private static final By LOC_INVENTORY_PRICE = By.className("inventory_item_price");
     final Logger LOGGER = LoggerFactory.getLogger(ProductSorting.class);
 
@@ -31,13 +32,13 @@ public class ProductSorting extends BasePage {
         Assert.assertEquals(getElement(LOC_DROPDOWN_SORTING).isDisplayed(), available);
     }
 
-    public void chooseSorting(Type.SortingByPrice sort) {
+    public void choosePriceSorting(SortingByPrice sort) {
         click(LOC_DROPDOWN_SORTING);
         Select sortingOption = new Select(driver.findElement(LOC_DROPDOWN_SORTING));
         sortingOption.selectByValue(sort.getValue());
     }
 
-    public void verifyPriceSorting(Type.SortingByPrice sort) {
+    public void verifyPriceSorting(SortingByPrice sort) {
         List<String> list = new ArrayList<>();
         List<WebElement> item = getElements(LOC_INVENTORY_PRICE);
         for (WebElement items : item) {
@@ -59,6 +60,24 @@ public class ProductSorting extends BasePage {
                 LOGGER.error("Not correct option");
                 
         }
+
+    }
+    public void chooseAlphabeticallySorting(SortingByAlphabetically sort) {
+        click(LOC_DROPDOWN_SORTING);
+        Select sortingOption = new Select(driver.findElement(LOC_DROPDOWN_SORTING));
+        sortingOption.selectByValue(sort.getValue());
+    }
+    public void verifyAlphabeticallySorting(){
+        List<String> sortedList = new ArrayList<>();
+        List<WebElement> item = getElements(LOC_INVENTORY_NAME);
+        for (WebElement items : item) {
+            sortedList.add((items.getText().substring(11)));
+
+        }
+        boolean isSortedAtoZ = Ordering.natural().isOrdered(sortedList);
+        System.out.printf(sortedList.toString());
+        System.out.println(isSortedAtoZ);
+
     }
 }
 
