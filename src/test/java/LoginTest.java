@@ -18,7 +18,7 @@ public class LoginTest extends Browser {
     @Test(testName = "Successful login")
     public void loginPage() {
         lp.login("standard_user", "secret_sauce");
-        lp.verifyUserIsLoggedIn(true);
+        lp.verifyUserIsLoggedIn();
     }
 
     @AfterTest

@@ -1,11 +1,10 @@
-import Enums.Sorting;
+import Enums.Type;
 import LoginPage.LoginPage;
 import Products.ProductSorting;
 import Utils.Browser;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 public class SortingTest extends Browser {
@@ -26,12 +25,13 @@ public class SortingTest extends Browser {
     }
     @Test(testName = "Sorting Menu")
     public void SortingMenu() {
-        ps.chooseSorting(Sorting.PRICE_HIGH_TO_LOW);
+        ps.chooseSorting(Type.SortingByPrice.PRICE_LOW_TO_HIGH);
+        ps.verifyPriceSorting(Type.SortingByPrice.PRICE_LOW_TO_HIGH);
     }
 
-  /*  @AfterTest
+    @AfterTest
     public void stopDriver() {
         tearDown();
-    }*/
+    }
 }
 

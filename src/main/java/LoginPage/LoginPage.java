@@ -15,6 +15,7 @@ public class LoginPage extends BasePage {
     private static final By LOC_PASSWORD = By.id("password");
     private static final By LOC_SUBMIT = By.id("login-button");
     private static final By LOC_MENU = By.id("react-burger-menu-btn");
+    private static final By LOC_ERROR = By.tagName("h3");
 
     public LoginPage(WebDriver driver) {
         super(driver);
@@ -33,9 +34,16 @@ public class LoginPage extends BasePage {
         click(LOC_SUBMIT);
     }
 
-    public void verifyUserIsLoggedIn(boolean loggedIn) {
+    public void verifyUserIsLoggedIn() {
 
-        Assert.assertEquals(getElement(LOC_MENU).isDisplayed(), loggedIn);
+        Assert.assertEquals(getElement(LOC_MENU).isDisplayed(), true);
         LOGGER.info("User is logged in");
+
+    }
+    public void verifyUserIsNotLoggedIn() {
+        System.out.println(getElement(LOC_ERROR).getText());
+        Assert.assertEquals(getElement(LOC_ERROR).isDisplayed(), true);
+        LOGGER.info("User is NOT logged in");
+
     }
 }
