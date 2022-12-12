@@ -58,27 +58,39 @@ public class ProductSorting extends BasePage {
                 break;
             default:
                 LOGGER.error("Not correct option");
-                
+
         }
 
     }
+
     public void chooseAlphabeticallySorting(SortingByAlphabetically sort) {
         click(LOC_DROPDOWN_SORTING);
         Select sortingOption = new Select(driver.findElement(LOC_DROPDOWN_SORTING));
         sortingOption.selectByValue(sort.getValue());
     }
-    public void verifyAlphabeticallySorting(){
+
+    public void verifyAlphabeticallySorting(SortingByAlphabetically sort) {
         List<String> sortedList = new ArrayList<>();
         List<WebElement> item = getElements(LOC_INVENTORY_NAME);
         for (WebElement items : item) {
             sortedList.add((items.getText().substring(11)));
 
         }
-        boolean isSortedAtoZ = Ordering.natural().isOrdered(sortedList);
-        System.out.printf(sortedList.toString());
-        System.out.println(isSortedAtoZ);
+        switch (sort.getOption()) {
+            case "Name (A to Z)":
+                LOGGER.info("Listed products from A to Z are {}", sortedList);
+                boolean isSortedLowToHigh = Ordering.natural().isOrdered(sortedList);
+                Assert.assertTrue(isSortedLowToHigh, "Ordering is INCORRECT");
+                break;
+            case "Name (Z to A)":
+                boolean isSorted = Ordering.natural().isOrdered(sortedList);
+                Assert.assertFalse(isSorted, "Ordering is INCORRECT");
+                break;
+            default:
+                LOGGER.error("Not correct option for sorting");
 
+
+        }
     }
 }
-
 
