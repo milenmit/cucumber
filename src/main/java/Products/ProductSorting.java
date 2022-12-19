@@ -45,7 +45,7 @@ public class ProductSorting extends BasePage {
             list.add((items.getText().substring(1)));
         }
         List<Double> sortedList = list.stream().map(Double::parseDouble).collect(Collectors.toList());
-        LOGGER.info(sortedList.toString());
+        LOGGER.info("Price info {} {}",sortedList,sort.getOption());
 
         switch (sort.getOption()) {
             case "Price (low to high)":
@@ -83,6 +83,7 @@ public class ProductSorting extends BasePage {
                 Assert.assertTrue(isSortedLowToHigh, "Ordering is INCORRECT");
                 break;
             case "Name (Z to A)":
+                LOGGER.info("Listed products from Z to A are {}", sortedList);
                 boolean isSorted = Ordering.natural().isOrdered(sortedList);
                 Assert.assertFalse(isSorted, "Ordering is INCORRECT");
                 break;

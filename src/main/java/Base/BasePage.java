@@ -1,6 +1,7 @@
 package Base;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -9,6 +10,8 @@ import org.testng.Assert;
 
 import java.time.Duration;
 import java.util.List;
+
+import static org.openqa.selenium.support.ui.ExpectedConditions.numberOfWindowsToBe;
 
 public class BasePage {
     protected WebDriver driver;
@@ -26,6 +29,10 @@ public class BasePage {
 
     public String getElementText(By text) {
         return driver.findElement(text).toString();
+    }
+
+    public String getTitle() {
+        return driver.getTitle();
     }
 
     //Get List of web elements
@@ -56,9 +63,22 @@ public class BasePage {
         return driver.findElement(elementBy).getText();
     }
 
+    //Switching windows - method will work for only one new tab
+    public WebDriver switchWindow(WebDriver driver) throws InterruptedException {
+        wait.until(numberOfWindowsToBe(2));
+// Switch to new window opened
+        for (String winHandle : driver.getWindowHandles()) {
+            driver.switchTo().window(winHandle);
+
+        }
+        return driver;
+
+    }
+
     //Assert
     public void assertEquals(By elementBy, String expectedText) {
         waitVisibility(elementBy);
         Assert.assertEquals(readText(elementBy), expectedText);
     }
+
 }

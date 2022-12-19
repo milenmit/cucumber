@@ -3,7 +3,7 @@ package Enums;
 public enum SocialPagesIcons {
 
     ICON_LINKEDIN("Linkedin"),
-    ICON_FACEBOOK("facebook"),
+    ICON_FACEBOOK("Facebook"),
     ICON_TWITTER("Twitter");
 
     SocialPagesIcons(String name) {
