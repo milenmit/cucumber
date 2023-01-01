@@ -1,7 +1,6 @@
 package Base;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -10,6 +9,7 @@ import org.testng.Assert;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.Set;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.numberOfWindowsToBe;
 
@@ -64,7 +64,8 @@ public class BasePage {
     }
 
     //Switching windows - method will work for only one new tab
-    public WebDriver switchWindow(WebDriver driver) throws InterruptedException {
+    public WebDriver switchWindow(WebDriver driver) {
+        String parentWindow = driver.getWindowHandle();
         wait.until(numberOfWindowsToBe(2));
 // Switch to new window opened
         for (String winHandle : driver.getWindowHandles()) {
@@ -73,6 +74,41 @@ public class BasePage {
         }
         return driver;
 
+    }
+
+
+    public WebDriver testWindow() {
+        String window = driver.getWindowHandle();
+        Set<String> handles = driver.getWindowHandles();
+        if (window.equals("newWindow"))
+            for (String windowHandle : handles) {
+                if (!windowHandle.equals(window)) {
+                    driver.switchTo().window(windowHandle);
+              /*  driver.close(); //closing child window
+                driver.switchTo().window(window); //cntrl to parent window*/
+
+                }
+            }
+        return driver;
+    }
+
+    public String getPageUrl() {
+        String currentUrl = null;
+        String window = driver.getWindowHandle();
+        Set<String> handles = driver.getWindowHandles();
+        for (String windowHandle : handles) {
+            if (!windowHandle.equals(window)) {
+                driver.switchTo().window(windowHandle);
+              /*  driver.close(); //closing child window
+                driver.switchTo().window(window); //cntrl to parent window*/
+
+                currentUrl = driver.getCurrentUrl();
+                driver.close();
+                driver.switchTo().window(window);
+            }
+        }
+
+        return currentUrl;
     }
 
     //Assert

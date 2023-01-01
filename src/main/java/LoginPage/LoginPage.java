@@ -32,17 +32,18 @@ public class LoginPage extends BasePage {
         writeText(LOC_USERNAME, username);
         writeText(LOC_PASSWORD, password);
         click(LOC_SUBMIT);
+        LOGGER.info("USer is logged in {}",URL);
     }
 
     public void verifyUserIsLoggedIn() {
 
-        Assert.assertEquals(getElement(LOC_MENU).isDisplayed(), true);
+        Assert.assertTrue(getElement(LOC_MENU).isDisplayed());
         LOGGER.info("User is logged in");
 
     }
     public void verifyUserIsNotLoggedIn() {
         System.out.println(getElement(LOC_ERROR).getText());
-        Assert.assertEquals(getElement(LOC_ERROR).isDisplayed(), true);
+        Assert.assertTrue(getElement(LOC_ERROR).isDisplayed());
         LOGGER.info("User is NOT logged in");
 
     }
