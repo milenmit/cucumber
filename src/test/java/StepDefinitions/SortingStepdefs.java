@@ -1,24 +1,25 @@
-package cucumber.StepDefinitionsSorting;
+package StepDefinitions;
 
 import Enums.SortingByAlphabeticallyAndPrice;
 import LoginPage.LoginPage;
 import Products.ProductSorting;
-import io.cucumber.java.BeforeAll;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.openqa.selenium.WebDriver;
 
 public class SortingStepdefs  {
-
-    private static  LoginPage loginPage;
+    private WebDriver driver;
+    private  LoginPage loginPage;
+    private ProductSorting productSorting;
+    private Hooks hooks;
     private final String username="standard_user";
     private final String password="secret_sauce";
-    static ProductSorting productSorting;
 
-    @BeforeAll
-    public static void beforeAll() {
-     /*   loginPage = new LoginPage(driver);
-        productSorting = new ProductSorting(driver);*/
+    public SortingStepdefs(Hooks hooks) {
+        this.driver = hooks.getDriver();
+        loginPage = new LoginPage(driver);
+        productSorting = new ProductSorting(driver);
     }
 
     @Given("User is logged in")

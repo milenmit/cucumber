@@ -1,17 +1,16 @@
-package cucumber.StepDefinitionsLogin;
+package StepDefinitions;
 
 
 import LoginPage.LoginPage;
-import cucumber.Hooks;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.WebDriver;
 
 public class LoginStepdefs {
-    private  WebDriver driver;
-    private LoginPage loginPage;
-    private  Hooks hooks;
+    private final WebDriver driver;
+    private final LoginPage loginPage;
+    private Hooks hooks;
 
     public LoginStepdefs(Hooks hooks) {
         this.hooks = hooks;

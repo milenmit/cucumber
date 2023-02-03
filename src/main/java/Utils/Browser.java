@@ -14,10 +14,10 @@ import java.util.concurrent.TimeUnit;
 
 public class Browser {
 
-     static protected WebDriver driver;
+    protected WebDriver driver;
     private static final Logger LOGGER = LoggerFactory.getLogger(Browser.class);
 
-    public static WebDriver  initializeDriver(String browserType) {
+    public void initializeDriver(String browserType) {
 
         switch (browserType) {
             case "firefox":
@@ -49,11 +49,10 @@ public class Browser {
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
-        return driver;
     }
 
-    protected void tearDown() {
-        driver.quit();
+    protected void closeSelenium() {
+       driver.quit();
         LOGGER.info("Closing WebDriver");
     }
 

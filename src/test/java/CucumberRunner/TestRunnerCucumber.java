@@ -1,5 +1,6 @@
 package CucumberRunner;
 
+
 import io.cucumber.testng.*;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
@@ -8,7 +9,7 @@ import org.testng.annotations.Test;
 @CucumberOptions(
         plugin = {"pretty"},
         features = {"src/test/resources/featureFilesLogin","src/test/resources/featureFilesSorting"},
-        glue = {"cucumber.StepDefinitionsLogin","cucumber.StepDefinitionsSorting"})
+        glue = "StepDefinitions")
 
 
 public class TestRunnerCucumber extends AbstractTestNGCucumberTests {

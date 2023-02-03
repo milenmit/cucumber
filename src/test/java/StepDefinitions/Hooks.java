@@ -1,15 +1,16 @@
-package cucumber;
+package StepDefinitions;
 
 import Utils.Browser;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import org.openqa.selenium.WebDriver;
 
+
 public class Hooks extends Browser {
 
 
     @Before
-    public static void setupBrowser()  {
+    public  void setupBrowser()  {
         initializeDriver("chrome");
     }
 
@@ -19,6 +20,6 @@ public class Hooks extends Browser {
 
     @After
     public void tearDown() {
-        driver.quit();
+       closeSelenium();
     }
 }
