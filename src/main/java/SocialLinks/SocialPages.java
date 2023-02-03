@@ -3,11 +3,9 @@ package SocialLinks;
 import Base.BasePage;
 import Enums.SocialPagesIcons;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
@@ -83,7 +81,7 @@ public class SocialPages extends BasePage {
                 LOGGER.info("Twitter has been selected");
                 click(LOC_TWITTER);
                 wait.until(ExpectedConditions.urlContains("sauce"));
-                String currentTwitterUrl = getPageUrl();
+                String currentTwitterUrl = manageWindows();
                 LOGGER.info("Current opened page is {}",currentTwitterUrl);
                 Assert.assertEquals(currentTwitterUrl, TWITTER_URL);
                 break;
@@ -91,7 +89,7 @@ public class SocialPages extends BasePage {
                 LOGGER.info("Facebook has been selected");
                 click(LOC_FACEBOOK);
                 wait.until(ExpectedConditions.urlContains("sauce"));
-                String currentFacebookUrl = getPageUrl();
+                String currentFacebookUrl = manageWindows();
                 LOGGER.info("Current opened page is {}",currentFacebookUrl);
                 Assert.assertEquals(currentFacebookUrl, FACEBOOK_URL);
                 break;
@@ -99,7 +97,7 @@ public class SocialPages extends BasePage {
                 LOGGER.info("Linkedin has been selected");
                 click(LOC_LINKEDIN);
                 wait.until(ExpectedConditions.urlContains("sauce"));
-                String currentLinkedinUrl = getPageUrl();
+                String currentLinkedinUrl = manageWindows();
                 LOGGER.info("Current opened page is {}",currentLinkedinUrl);
                 Assert.assertTrue(currentLinkedinUrl.contains(LINKEDIN_URL));
                 break;

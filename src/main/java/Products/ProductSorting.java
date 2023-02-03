@@ -1,8 +1,7 @@
 package Products;
 
 import Base.BasePage;
-import Enums.SortingByAlphabetically;
-import Enums.SortingByPrice;
+import Enums.SortingByAlphabeticallyAndPrice;
 import com.google.common.collect.Ordering;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -32,13 +31,14 @@ public class ProductSorting extends BasePage {
         Assert.assertEquals(getElement(LOC_DROPDOWN_SORTING).isDisplayed(), available);
     }
 
-    public void choosePriceSorting(SortingByPrice sort) {
+    public void choosePriceSorting(SortingByAlphabeticallyAndPrice sort) {
         click(LOC_DROPDOWN_SORTING);
         Select sortingOption = new Select(driver.findElement(LOC_DROPDOWN_SORTING));
         sortingOption.selectByValue(sort.getValue());
+        LOGGER.info("User chooses {}",sort.getValue());
     }
 
-    public void verifyPriceSorting(SortingByPrice sort) {
+    public void verifyPriceSorting(SortingByAlphabeticallyAndPrice sort) {
         List<String> list = new ArrayList<>();
         List<WebElement> item = getElements(LOC_INVENTORY_PRICE);
         for (WebElement items : item) {
@@ -50,26 +50,26 @@ public class ProductSorting extends BasePage {
         switch (sort.getOption()) {
             case "Price (low to high)":
                 boolean isSortedLowToHigh = Ordering.natural().isOrdered(sortedList);
-                Assert.assertTrue(isSortedLowToHigh, "Ordering is INCORRECT");
+                Assert.assertTrue(isSortedLowToHigh, "Ordering low to high is is INCORRECT");
                 break;
             case "Price (high to low)":
                 boolean isSorted = Ordering.natural().isOrdered(sortedList);
-                Assert.assertFalse(isSorted, "Ordering is INCORRECT");
+                Assert.assertFalse(isSorted, "Ordering high to low is is INCORRECT");
                 break;
             default:
-                LOGGER.error("Not correct option");
+                LOGGER.error("Not correct option for sorting");
 
         }
 
     }
 
-    public void chooseAlphabeticallySorting(SortingByAlphabetically sort) {
+    public void chooseAlphabeticallySorting(SortingByAlphabeticallyAndPrice sort) {
         click(LOC_DROPDOWN_SORTING);
         Select sortingOption = new Select(driver.findElement(LOC_DROPDOWN_SORTING));
         sortingOption.selectByValue(sort.getValue());
     }
 
-    public void verifyAlphabeticallySorting(SortingByAlphabetically sort) {
+    public void verifyAlphabeticallySorting(SortingByAlphabeticallyAndPrice sort) {
         List<String> sortedList = new ArrayList<>();
         List<WebElement> item = getElements(LOC_INVENTORY_NAME);
         for (WebElement items : item) {

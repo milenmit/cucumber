@@ -11,13 +11,11 @@ import java.time.Duration;
 import java.util.List;
 import java.util.Set;
 
-import static org.openqa.selenium.support.ui.ExpectedConditions.numberOfWindowsToBe;
-
-public class BasePage {
+public class BasePage  {
     protected WebDriver driver;
     protected WebDriverWait wait;
 
-    protected BasePage(WebDriver driver) {
+    public BasePage(WebDriver driver) {
         this.driver = driver;
         wait = new WebDriverWait(driver, Duration.ofMillis(10000));
     }
@@ -25,6 +23,9 @@ public class BasePage {
     // Get element
     public WebElement getElement(By locator) {
         return driver.findElement(locator);
+    }
+    public String getUrl() {
+        return driver.getCurrentUrl();
     }
 
     public String getElementText(By text) {
@@ -34,6 +35,7 @@ public class BasePage {
     public String getTitle() {
         return driver.getTitle();
     }
+
 
     //Get List of web elements
     public List<WebElement> getElements(By locator) {
@@ -63,18 +65,6 @@ public class BasePage {
         return driver.findElement(elementBy).getText();
     }
 
-    //Switching windows - method will work for only one new tab
-    public WebDriver switchWindow(WebDriver driver) {
-        String parentWindow = driver.getWindowHandle();
-        wait.until(numberOfWindowsToBe(2));
-// Switch to new window opened
-        for (String winHandle : driver.getWindowHandles()) {
-            driver.switchTo().window(winHandle);
-
-        }
-        return driver;
-
-    }
 
 
     public WebDriver testWindow() {
@@ -92,7 +82,7 @@ public class BasePage {
         return driver;
     }
 
-    public String getPageUrl() {
+    public String manageWindows() {
         String currentUrl = null;
         String window = driver.getWindowHandle();
         Set<String> handles = driver.getWindowHandles();
